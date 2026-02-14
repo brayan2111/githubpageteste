@@ -6,7 +6,7 @@
 <title>Galaxia San Valentín</title>
 
 <style>
-body{margin:0;overflow:hidden;background:rgb(0,0,0);font-family:'Comic Sans MS',cursive;}
+body{margin:0;overflow:hidden;background:rgb(0, 0, 0);font-family:'Comic Sans MS',cursive;}
 canvas{position:absolute;top:0;left:0;z-index:1;}
 .layout{position:relative;z-index:5;}
 
@@ -23,18 +23,50 @@ box-shadow:0 0 40px 20px #ff00ff,0 0 120px 40px #ff00ff;transform:translate(-50%
 background:black;border-radius:50%;box-shadow:0 0 100px 40px rgba(255,0,255,0.6);}
 .word{position:absolute;top:50%;left:50%;color:white;font-size:18px;text-shadow:0 0 10px #ff00ff;white-space:nowrap;}
 
-/* CARTA */
+/* ================= CARTA MEJORADA ================= */
+
 .left-card{
-position:absolute;width:300px;height:350px;top:50%;right:63%;transform:translate(-50%,-50%);
-background:rgba(255,182,193,0.45);border-radius:25px;box-shadow:0 10px 30px rgba(255,0,200,0.3);
-display:flex;justify-content:center;align-items:center;text-align:center;padding:30px;color:white;
+position:absolute;width:320px;min-height:380px;top:50%;right:63%;transform:translate(-50%,-50%);
+background:linear-gradient(145deg,rgba(255,192,203,0.85),rgba(255,160,210,0.85));
+border-radius:28px;
+box-shadow:0 15px 45px rgba(255,0,200,0.45), inset 0 0 25px rgba(255,255,255,0.25);
+display:flex;justify-content:center;align-items:center;text-align:center;padding:35px;
+color:#fff;font-size:18px;line-height:1.6;
+animation:cardFloat 4s ease-in-out infinite alternate;
 }
-.left-card::before,.left-card::after{content:"🦋";position:absolute;font-size:30px;}
-.left-card::before{top:8px;left:10px;}
-.left-card::after{bottom:8px;right:10px;}
-.b2,.b3{position:absolute;font-size:30px;}
-.b2{top:8px;right:10px;}
-.b3{bottom:8px;left:10px;}
+
+/* Mariposas */
+.left-card::before,
+.left-card::after{
+content:"🦋";
+position:absolute;
+font-size:32px;
+animation:butterfly 3s ease-in-out infinite alternate;
+}
+
+.left-card::before{top:8px;left:12px;}
+.left-card::after{bottom:8px;right:12px;}
+
+.butterfly2,.butterfly3{
+position:absolute;
+font-size:32px;
+animation:butterfly 3s ease-in-out infinite alternate;
+}
+
+.butterfly2{top:8px;right:12px;}
+.butterfly3{bottom:8px;left:12px;}
+
+@keyframes butterfly{
+from{transform:translateY(0px) rotate(-8deg);}
+to{transform:translateY(10px) rotate(8deg);}
+}
+
+@keyframes cardFloat{
+from{transform:translate(-50%,-50%) translateY(0px);}
+to{transform:translate(-50%,-50%) translateY(-10px);}
+}
+
+/* ================================================ */
 
 .right-media{
 position:absolute;top:50%;left:85%;transform:translate(-50%,-50%);
@@ -44,6 +76,29 @@ background:rgba(255,182,193,0.3);border-radius:25px;box-shadow:0 10px 30px rgba(
 .right-media video{width:100%;border-radius:10px;}
 .photos{display:flex;gap:10px;justify-content:center;}
 .photos img{width:90px;border-radius:8px;}
+
+/* MOVIL */
+@media(max-width:768px){
+body{overflow:auto;}
+canvas{position:fixed;}
+
+.layout{display:flex;flex-direction:column;align-items:center;gap:40px;padding-top:90px;padding-bottom:80px;}
+.title{position:relative;font-size:26px;}
+
+.galaxy,.left-card,.right-media{
+position:relative !important;top:auto;left:auto;right:auto;transform:none !important;
+}
+
+.right-media{order:1;width:90%;max-width:350px;}
+.galaxy{order:2;width:90vw;height:90vw;max-width:380px;max-height:380px;}
+.left-card{order:3;width:90%;max-width:350px;height:auto;}
+
+.ring{width:80%;height:80%;}
+.planet{width:35%;height:35%;}
+.word{font-size:13px;}
+.photos{flex-wrap:wrap;}
+.photos img{width:28%;min-width:70px;}
+}
 </style>
 </head>
 
@@ -72,18 +127,19 @@ background:rgba(255,182,193,0.3);border-radius:25px;box-shadow:0 10px 30px rgba(
 </div>
 
 <div class="left-card">
-<div class="b2">🦋</div>
-<div class="b3">🦋</div>
+<div class="butterfly2">🦋</div>
+<div class="butterfly3">🦋</div>
+
 <p>
 Para mí, tú eres mi mundo entero.<br><br>
 Hoy 14 de febrero agradezco tenerte conmigo.<br><br>
-Cada momento contigo es un tesoro,
+Cada momento contigo es un tesoro,<br>
 y siempre deseo que nuestra historia continúe brillando como las estrellas. 💝
 </p>
 </div>
 
 <div class="right-media">
-<video id="video" src="video.mp4" muted autoplay playsinline></video>
+<video id="miVideo" src="video.mp4" muted autoplay loop playsinline></video>
 <div class="photos">
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
@@ -93,7 +149,11 @@ y siempre deseo que nuestra historia continúe brillando como las estrellas. �
 
 </div>
 
-<div id="startMusic" style="position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;justify-content:center;align-items:center;z-index:9999;color:white;font-size:22px;text-align:center;backdrop-filter:blur(8px);">
+<div id="startMusic" style="
+position:fixed;inset:0;background:rgba(0, 0, 0, 0.65);
+display:flex;justify-content:center;align-items:center;
+z-index:9999;color:white;font-size:22px;text-align:center;
+backdrop-filter:blur(8px);">
 Toca la pantalla ❤️<br>para comenzar la sorpresa
 </div>
 
@@ -102,15 +162,21 @@ Toca la pantalla ❤️<br>para comenzar la sorpresa
 <script>
 document.addEventListener("DOMContentLoaded",function(){
 
-/* ESTRELLAS */
 const canvas=document.getElementById("space");
 const ctx=canvas.getContext("2d");
 
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-resize();window.addEventListener("resize",resize);
+resize();
+window.addEventListener("resize",resize);
 
 let stars=[];
-for(let i=0;i<400;i++)stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,s:Math.random()*2});
+function createStars(){
+stars=[];
+for(let i=0;i<400;i++){
+stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,s:Math.random()*2});
+}}
+createStars();
+window.addEventListener("resize",createStars);
 
 function draw(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -119,9 +185,10 @@ requestAnimationFrame(draw);
 }
 draw();
 
-/* ORBITA TEXTO */
 const words=document.querySelectorAll(".word");
 const ring=document.getElementById("ring");
+
+if(words.length>0 && ring){
 let radius=Math.min(window.innerWidth,window.innerHeight)*0.32;
 window.addEventListener("resize",()=>radius=Math.min(window.innerWidth,window.innerHeight)*0.32);
 
@@ -138,19 +205,13 @@ words[i].style.transform="translate(-50%,-50%) translate("+x+"px,"+y+"px)";
 requestAnimationFrame(animate);
 }
 animate();
-
-/* VIDEO 10 SEGUNDOS */
-const video=document.getElementById("video");
-video.addEventListener("timeupdate",function(){
-if(video.currentTime>=10){
-video.currentTime=0;
-video.play();
 }
-});
 
-/* MUSICA */
 const music=document.getElementById("musica");
 const overlay=document.getElementById("startMusic");
+
+music.volume=0.9;
+music.play().then(()=>overlay.style.display="none").catch(()=>{});
 
 function startAudio(){
 music.currentTime=0;
@@ -164,6 +225,14 @@ document.addEventListener("touchstart",startAudio);
 
 setInterval(()=>{if(music.paused)music.play().catch(()=>{});},2000);
 music.addEventListener("ended",()=>{music.currentTime=0;music.play();});
+
+/* ===== REINICIAR VIDEO CADA 10 SEGUNDOS ===== */
+const video=document.getElementById("miVideo");
+setInterval(()=>{
+video.currentTime=0;
+video.play();
+},10000);
+/* =========================================== */
 
 });
 </script>
