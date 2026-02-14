@@ -227,15 +227,15 @@ document.addEventListener("touchstart",startAudio);
 
 setInterval(()=>{if(music.paused)music.play().catch(()=>{});},2000);
 music.addEventListener("ended",()=>{music.currentTime=0;music.play();});
-/* REINICIAR VIDEO EXACTAMENTE A LOS 10 SEGUNDOS SIN ROMPER MOVIL */
+/* REINICIAR VIDEO CADA 10 SEGUNDOS (COMPATIBLE MOVIL) */
 const video = document.querySelector(".right-media video");
 
 if(video){
-video.addEventListener("timeupdate", function(){
-if(video.currentTime >= 10){
+function reiniciarVideo(){
 video.currentTime = 0;
+setTimeout(reiniciarVideo, 10000);
 }
-});
+setTimeout(reiniciarVideo, 10000);
 }
 
 
