@@ -2,151 +2,156 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galaxia San Valentín</title>
+<title>14 de Febrero 💝</title>
 
 <style>
-body{margin:0;overflow:hidden;background:black;font-family:'Comic Sans MS',cursive;}
-canvas{position:absolute;top:0;left:0;z-index:1;}
-.layout{position:relative;z-index:5;}
+    body{
+        margin:0;
+        overflow:hidden;
+        background:black;
+        font-family: "Segoe UI", sans-serif;
+        color:white;
+        text-align:center;
+    }
 
-.title{
-position:absolute;top:5%;width:100%;text-align:center;font-size:38px;
-color:#ff77cc;text-shadow:0 0 20px #ff00ff,0 0 40px #ff00ff;z-index:10;
-}
+    /* VIDEO */
+    video{
+        position:fixed;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        z-index:-2;
+    }
 
-.galaxy{position:absolute;top:50%;left:50%;width:600px;height:600px;transform:translate(-50%,-50%);}
-.system{position:absolute;width:100%;height:100%;transform-style:preserve-3d;}
-.ring{position:absolute;top:50%;left:50%;width:500px;height:500px;border-radius:50%;
-box-shadow:0 0 40px 20px #ff00ff,0 0 120px 40px #ff00ff;transform:translate(-50%,-50%) rotateX(65deg);}
-.planet{position:absolute;top:50%;left:50%;width:230px;height:230px;transform:translate(-50%,-50%);
-background:black;border-radius:50%;box-shadow:0 0 100px 40px rgba(255,0,255,0.6);}
-.word{position:absolute;top:50%;left:50%;color:white;font-size:18px;text-shadow:0 0 10px #ff00ff;white-space:nowrap;}
+    /* GALAXIA */
+    .galaxy{
+        position:absolute;
+        top:50%;
+        left:50%;
+        width:300px;
+        height:300px;
+        transform:translate(-50%,-50%);
+        border-radius:50%;
+        box-shadow:
+            0 0 80px #8f5cff,
+            0 0 150px #5c9cff,
+            0 0 200px #ff5cd9;
+        animation:spin 40s linear infinite;
+    }
 
-/* CARTA */
-.left-card{
-position:absolute;width:300px;height:350px;top:50%;right:63%;transform:translate(-50%,-50%);
-background:rgba(255,182,193,0.45);border-radius:25px;box-shadow:0 10px 30px rgba(255,0,200,0.3);
-display:flex;justify-content:center;align-items:center;text-align:center;padding:30px;
-}
-.left-card p{font-size:20px;line-height:1.5;color:#4d062d}
+    @keyframes spin{
+        from{ transform:translate(-50%,-50%) rotate(0deg); }
+        to{ transform:translate(-50%,-50%) rotate(360deg); }
+    }
 
-/* 4 mariposas esquinas */
-.left-card span{
-position:absolute;font-size:35px;pointer-events:none;
-}
-.b1{top:8px;left:10px;transform:rotate(-20deg);}
-.b2{top:8px;right:10px;transform:rotate(20deg);}
-.b3{bottom:8px;left:10px;transform:rotate(200deg);}
-.b4{bottom:8px;right:10px;transform:rotate(-200deg);}
+    /* TEXTO CENTRAL */
+    .mensaje{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        width:80%;
+        max-width:600px;
+        font-size:22px;
+        line-height:1.5;
+        text-shadow:0 0 15px #ff9df5;
+    }
 
-/* MEDIA DERECHA */
-.right-media{
-position:absolute;top:50%;left:85%;transform:translate(-50%,-50%);
-width:320px;display:flex;flex-direction:column;gap:15px;padding:10px;
-background:rgba(255,182,193,0.3);border-radius:25px;box-shadow:0 10px 30px rgba(255,0,200,0.3);
-}
-.right-media video{width:100%;border-radius:10px;}
-.photos{display:flex;gap:10px;justify-content:center;}
-.photos img{width:90px;border-radius:8px;}
+    /* TEXTO GIRATORIO */
+    .orbita{
+        position:absolute;
+        top:50%;
+        left:50%;
+        width:420px;
+        height:420px;
+        transform:translate(-50%,-50%);
+        animation:orbitar 25s linear infinite;
+    }
 
-@media(max-width:768px){
-body{overflow:auto;} canvas{position:fixed;}
-.layout{display:flex;flex-direction:column;align-items:center;gap:40px;padding-top:90px;padding-bottom:80px;}
-.title{position:relative;font-size:26px;}
-.galaxy,.left-card,.right-media{position:relative !important;top:auto;left:auto;right:auto;transform:none !important;}
-.right-media{order:1;width:90%;max-width:350px;}
-.galaxy{order:2;width:90vw;height:90vw;max-width:380px;max-height:380px;}
-.left-card{order:3;width:90%;max-width:350px;height:auto;}
-.ring{width:80%;height:80%;}
-.planet{width:35%;height:35%;}
-.word{font-size:13px;}
-.photos{flex-wrap:wrap;}
-.photos img{width:28%;min-width:70px;}
-}
+    @keyframes orbitar{
+        from{ transform:translate(-50%,-50%) rotate(0deg);}
+        to{ transform:translate(-50%,-50%) rotate(360deg);}
+    }
+
+    .letra{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform-origin:0 -200px;
+        font-size:18px;
+        text-shadow:0 0 8px #fff;
+    }
+
+    /* MARIPOSAS */
+    .butterfly{
+        position:fixed;
+        font-size:35px;
+        animation:flotar 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes flotar{
+        from{ transform:translateY(0px);}
+        to{ transform:translateY(15px);}
+    }
+
+    .b1{top:10px;left:10px;}
+    .b2{top:10px;right:10px;}
+    .b3{bottom:10px;left:10px;}
+    .b4{bottom:10px;right:10px;}
+
 </style>
 </head>
-
 <body>
-<canvas id="space"></canvas>
 
-<div class="layout">
+<!-- VIDEO -->
+<video id="video" autoplay muted>
+    <source src="video.mp4" type="video/mp4">
+</video>
 
-<div class="title">Feliz San Valentín ❤️</div>
+<!-- GALAXIA -->
+<div class="galaxy"></div>
 
-<div class="galaxy">
-<div class="system">
-<div class="ring" id="ring"></div>
-<div class="word">Te amo 💖</div>
-<div class="word">Mi princesa</div>
-<div class="word">Eres mi hogar</div>
-<div class="word">Mi universo</div>
-<div class="word">Siempre tú</div>
-<div class="word">Mi vida entera</div>
-<div class="word">Contigo siempre</div>
-<div class="word">Mi corazón es tuyo</div>
-<div class="word">Eres mi destino</div>
-<div class="word">Mi estrella ✨</div>
-</div>
-<div class="planet"></div>
-</div>
+<!-- TEXTO GIRATORIO -->
+<div class="orbita" id="orbita"></div>
 
-<div class="left-card">
-<span class="b1">🦋</span>
-<span class="b2">🦋</span>
-<span class="b3">🦋</span>
-<span class="b4">🦋</span>
-<p>
+<!-- MENSAJE -->
+<div class="mensaje">
 Para mí, tú eres mi mundo entero.<br>
 Hoy 14 de febrero agradezco tenerte conmigo.<br>
-Cada momento contigo es un tesoro, y siempre deseo que nuestra historia continúe brillando como las estrellas. 💝
-</p>
+Cada momento contigo es un tesoro,<br>
+y siempre deseo que nuestra historia continúe brillando como las estrellas. 💝
 </div>
 
-<div class="right-media">
-<video id="video" src="video.mp4" muted playsinline></video>
-<div class="photos">
-<img src="foto1.jpeg">
-<img src="foto2.jpeg">
-<img src="foto3.jpeg">
-</div>
-</div>
-
-</div>
-
-<!-- MUSICA -->
-<div id="startMusic" style="position:fixed;inset:0;background:rgba(0,0,0,0.65);display:flex;justify-content:center;align-items:center;z-index:9999;color:white;font-size:22px;text-align:center;backdrop-filter:blur(8px);">
-Toca la pantalla ❤️<br>para comenzar la sorpresa
-</div>
-<audio id="musica" src="musica.mp3" loop></audio>
+<!-- MARIPOSAS -->
+<div class="butterfly b1">🦋</div>
+<div class="butterfly b2">🦋</div>
+<div class="butterfly b3">🦋</div>
+<div class="butterfly b4">🦋</div>
 
 <script>
-document.addEventListener("DOMContentLoaded",function(){
 
-/* VIDEO 10 SEGUNDOS EXACTOS */
-const video=document.getElementById("video");
-video.currentTime=0;
-video.play().catch(()=>{});
-setInterval(()=>{
-video.currentTime=0;
-video.play().catch(()=>{});
-},10000);
+/* TEXTO QUE GIRA ALREDEDOR */
+const frase = " TE AMO POR SIEMPRE ✨ ";
+const orbita = document.getElementById("orbita");
 
-/* MUSICA */
-const music=document.getElementById("musica");
-const overlay=document.getElementById("startMusic");
-music.volume=0.9;
-function startAudio(){
-music.play();
-overlay.style.display="none";
-document.removeEventListener("click",startAudio);
-document.removeEventListener("touchstart",startAudio);
+for(let i=0;i<frase.length;i++){
+    const span = document.createElement("span");
+    span.className="letra";
+    span.innerText = frase[i];
+    span.style.transform = rotate(${i*(360/frase.length)}deg) translate(-50%, -200px) rotate(${-(i*(360/frase.length))}deg);
+    orbita.appendChild(span);
 }
-document.addEventListener("click",startAudio);
-document.addEventListener("touchstart",startAudio);
-setInterval(()=>{if(music.paused)music.play().catch(()=>{});},2000);
 
+/* VIDEO SOLO 10 SEGUNDOS LOOP */
+const video = document.getElementById("video");
+
+video.addEventListener("timeupdate",()=>{
+    if(video.currentTime >= 10){
+        video.currentTime = 0;
+        video.play();
+    }
 });
+
 </script>
 
 </body>
