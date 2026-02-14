@@ -126,6 +126,7 @@ position:relative !important;top:auto;left:auto;right:auto;transform:none !impor
 <div class="planet"></div>
 </div>
 
+<!-- CARTA -->
 <div class="left-card">
 <div class="butterfly2">🦋</div>
 <div class="butterfly3">🦋</div>
@@ -139,7 +140,7 @@ y siempre deseo que nuestra historia continúe brillando como las estrellas. �
 </div>
 
 <div class="right-media">
-<video id="miVideo" src="video.mp4" muted autoplay loop playsinline></video>
+<video src="video.mp4" muted autoplay loop playsinline></video>
 <div class="photos">
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
@@ -149,6 +150,7 @@ y siempre deseo que nuestra historia continúe brillando como las estrellas. �
 
 </div>
 
+<!-- PANTALLA PARA DESBLOQUEAR MUSICA -->
 <div id="startMusic" style="
 position:fixed;inset:0;background:rgba(0, 0, 0, 0.65);
 display:flex;justify-content:center;align-items:center;
@@ -226,14 +228,16 @@ document.addEventListener("touchstart",startAudio);
 setInterval(()=>{if(music.paused)music.play().catch(()=>{});},2000);
 music.addEventListener("ended",()=>{music.currentTime=0;music.play();});
 
-/* ===== REINICIAR VIDEO CADA 10 SEGUNDOS ===== */
-const video=document.getElementById("miVideo");
-setInterval(()=>{
-video.currentTime=0;
-video.play();
-},10000);
-/* =========================================== */
+/* REINICIAR VIDEO CADA 10 SEGUNDOS */
+const video = document.querySelector(".right-media video");
 
+setInterval(function(){
+if(video){
+video.currentTime = 0;
+video.play();
+}
+},10000);
+  
 });
 </script>
 
