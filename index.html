@@ -2,156 +2,233 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>14 de Febrero 💝</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galaxia San Valentín</title>
 
 <style>
-    body{
-        margin:0;
-        overflow:hidden;
-        background:black;
-        font-family: "Segoe UI", sans-serif;
-        color:white;
-        text-align:center;
-    }
+body{margin:0;overflow:hidden;background:rgb(0, 0, 0);font-family:'Comic Sans MS',cursive;}
+canvas{position:absolute;top:0;left:0;z-index:1;}
+.layout{position:relative;z-index:5;}
 
-    /* VIDEO */
-    video{
-        position:fixed;
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        z-index:-2;
-    }
-
-    /* GALAXIA */
-    .galaxy{
-        position:absolute;
-        top:50%;
-        left:50%;
-        width:300px;
-        height:300px;
-        transform:translate(-50%,-50%);
-        border-radius:50%;
-        box-shadow:
-            0 0 80px #8f5cff,
-            0 0 150px #5c9cff,
-            0 0 200px #ff5cd9;
-        animation:spin 40s linear infinite;
-    }
-
-    @keyframes spin{
-        from{ transform:translate(-50%,-50%) rotate(0deg); }
-        to{ transform:translate(-50%,-50%) rotate(360deg); }
-    }
-
-    /* TEXTO CENTRAL */
-    .mensaje{
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform:translate(-50%,-50%);
-        width:80%;
-        max-width:600px;
-        font-size:22px;
-        line-height:1.5;
-        text-shadow:0 0 15px #ff9df5;
-    }
-
-    /* TEXTO GIRATORIO */
-    .orbita{
-        position:absolute;
-        top:50%;
-        left:50%;
-        width:420px;
-        height:420px;
-        transform:translate(-50%,-50%);
-        animation:orbitar 25s linear infinite;
-    }
-
-    @keyframes orbitar{
-        from{ transform:translate(-50%,-50%) rotate(0deg);}
-        to{ transform:translate(-50%,-50%) rotate(360deg);}
-    }
-
-    .letra{
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform-origin:0 -200px;
-        font-size:18px;
-        text-shadow:0 0 8px #fff;
-    }
-
-    /* MARIPOSAS */
-    .butterfly{
-        position:fixed;
-        font-size:35px;
-        animation:flotar 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes flotar{
-        from{ transform:translateY(0px);}
-        to{ transform:translateY(15px);}
-    }
-
-    .b1{top:10px;left:10px;}
-    .b2{top:10px;right:10px;}
-    .b3{bottom:10px;left:10px;}
-    .b4{bottom:10px;right:10px;}
-
-</style>
-</head>
-<body>
-
-<!-- VIDEO -->
-<video id="video" autoplay muted>
-    <source src="video.mp4" type="video/mp4">
-</video>
-
-<!-- GALAXIA -->
-<div class="galaxy"></div>
-
-<!-- TEXTO GIRATORIO -->
-<div class="orbita" id="orbita"></div>
-
-<!-- MENSAJE -->
-<div class="mensaje">
-Para mí, tú eres mi mundo entero.<br>
-Hoy 14 de febrero agradezco tenerte conmigo.<br>
-Cada momento contigo es un tesoro,<br>
-y siempre deseo que nuestra historia continúe brillando como las estrellas. 💝
-</div>
-
-<!-- MARIPOSAS -->
-<div class="butterfly b1">🦋</div>
-<div class="butterfly b2">🦋</div>
-<div class="butterfly b3">🦋</div>
-<div class="butterfly b4">🦋</div>
-
-<script>
-
-/* TEXTO QUE GIRA ALREDEDOR */
-const frase = " TE AMO POR SIEMPRE ✨ ";
-const orbita = document.getElementById("orbita");
-
-for(let i=0;i<frase.length;i++){
-    const span = document.createElement("span");
-    span.className="letra";
-    span.innerText = frase[i];
-    span.style.transform = rotate(${i*(360/frase.length)}deg) translate(-50%, -200px) rotate(${-(i*(360/frase.length))}deg);
-    orbita.appendChild(span);
+.title{
+position:absolute;top:5%;width:100%;text-align:center;font-size:38px;
+color:#ff77cc;text-shadow:0 0 20px #ff00ff,0 0 40px #ff00ff;z-index:10;
 }
 
-/* VIDEO SOLO 10 SEGUNDOS LOOP */
-const video = document.getElementById("video");
+.galaxy{position:absolute;top:50%;left:50%;width:600px;height:600px;transform:translate(-50%,-50%);}
+.system{position:absolute;width:100%;height:100%;transform-style:preserve-3d;}
+.ring{position:absolute;top:50%;left:50%;width:500px;height:500px;border-radius:50%;
+box-shadow:0 0 40px 20px #ff00ff,0 0 120px 40px #ff00ff;transform:translate(-50%,-50%) rotateX(65deg);}
+.planet{position:absolute;top:50%;left:50%;width:230px;height:230px;transform:translate(-50%,-50%);
+background:black;border-radius:50%;box-shadow:0 0 100px 40px rgba(255,0,255,0.6);}
+.word{position:absolute;top:50%;left:50%;color:white;font-size:18px;text-shadow:0 0 10px #ff00ff;white-space:nowrap;}
 
-video.addEventListener("timeupdate",()=>{
-    if(video.currentTime >= 10){
-        video.currentTime = 0;
-        video.play();
-    }
+/* ================= CARTA MEJORADA ================= */
+
+.left-card{
+position:absolute;width:320px;min-height:380px;top:50%;right:63%;transform:translate(-50%,-50%);
+background:linear-gradient(145deg,rgba(255,192,203,0.85),rgba(255,160,210,0.85));
+border-radius:28px;
+box-shadow:0 15px 45px rgba(255,0,200,0.45), inset 0 0 25px rgba(255,255,255,0.25);
+display:flex;justify-content:center;align-items:center;text-align:center;padding:35px;
+color:#fff;font-size:18px;line-height:1.6;
+animation:cardFloat 4s ease-in-out infinite alternate;
+}
+
+/* Mariposas */
+.left-card::before,
+.left-card::after{
+content:"🦋";
+position:absolute;
+font-size:32px;
+animation:butterfly 3s ease-in-out infinite alternate;
+}
+
+.left-card::before{top:8px;left:12px;}
+.left-card::after{bottom:8px;right:12px;}
+
+.butterfly2,.butterfly3{
+position:absolute;
+font-size:32px;
+animation:butterfly 3s ease-in-out infinite alternate;
+}
+
+.butterfly2{top:8px;right:12px;}
+.butterfly3{bottom:8px;left:12px;}
+
+@keyframes butterfly{
+from{transform:translateY(0px) rotate(-8deg);}
+to{transform:translateY(10px) rotate(8deg);}
+}
+
+@keyframes cardFloat{
+from{transform:translate(-50%,-50%) translateY(0px);}
+to{transform:translate(-50%,-50%) translateY(-10px);}
+}
+
+/* ================================================ */
+
+.right-media{
+position:absolute;top:50%;left:85%;transform:translate(-50%,-50%);
+width:320px;display:flex;flex-direction:column;gap:15px;padding:10px;
+background:rgba(255,182,193,0.3);border-radius:25px;box-shadow:0 10px 30px rgba(255,0,200,0.3);
+}
+.right-media video{width:100%;border-radius:10px;}
+.photos{display:flex;gap:10px;justify-content:center;}
+.photos img{width:90px;border-radius:8px;}
+
+/* MOVIL */
+@media(max-width:768px){
+body{overflow:auto;}
+canvas{position:fixed;}
+
+.layout{display:flex;flex-direction:column;align-items:center;gap:40px;padding-top:90px;padding-bottom:80px;}
+.title{position:relative;font-size:26px;}
+
+.galaxy,.left-card,.right-media{
+position:relative !important;top:auto;left:auto;right:auto;transform:none !important;
+}
+
+.right-media{order:1;width:90%;max-width:350px;}
+.galaxy{order:2;width:90vw;height:90vw;max-width:380px;max-height:380px;}
+.left-card{order:3;width:90%;max-width:350px;height:auto;}
+
+.ring{width:80%;height:80%;}
+.planet{width:35%;height:35%;}
+.word{font-size:13px;}
+.photos{flex-wrap:wrap;}
+.photos img{width:28%;min-width:70px;}
+}
+</style>
+</head>
+
+<body>
+<canvas id="space"></canvas>
+
+<div class="layout">
+
+<div class="title">Feliz San Valentín ❤️</div>
+
+<div class="galaxy">
+<div class="system">
+<div class="ring" id="ring"></div>
+<div class="word">Te amo 💖</div>
+<div class="word">Mi princesa</div>
+<div class="word">Eres mi hogar</div>
+<div class="word">Mi universo</div>
+<div class="word">Siempre tú</div>
+<div class="word">Mi vida entera</div>
+<div class="word">Contigo siempre</div>
+<div class="word">Mi corazón es tuyo</div>
+<div class="word">Eres mi destino</div>
+<div class="word">Mi estrella ✨</div>
+</div>
+<div class="planet"></div>
+</div>
+
+<!-- CARTA -->
+<div class="left-card">
+<div class="butterfly2">🦋</div>
+<div class="butterfly3">🦋</div>
+
+<p>
+Para mí, tú eres mi mundo entero.<br><br>
+Hoy 14 de febrero agradezco tenerte conmigo.<br><br>
+Cada momento contigo es un tesoro,<br>
+y siempre deseo que nuestra historia continúe brillando como las estrellas. 💝
+</p>
+</div>
+
+<div class="right-media">
+<video src="video.mp4" muted autoplay loop playsinline></video>
+<div class="photos">
+<img src="foto1.jpeg">
+<img src="foto2.jpeg">
+<img src="foto3.jpeg">
+</div>
+</div>
+
+</div>
+
+<!-- PANTALLA PARA DESBLOQUEAR MUSICA -->
+<div id="startMusic" style="
+position:fixed;inset:0;background:rgba(0, 0, 0, 0.65);
+display:flex;justify-content:center;align-items:center;
+z-index:9999;color:white;font-size:22px;text-align:center;
+backdrop-filter:blur(8px);">
+Toca la pantalla ❤️<br>para comenzar la sorpresa
+</div>
+
+<audio id="musica" src="musica.mp3" loop></audio>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+
+const canvas=document.getElementById("space");
+const ctx=canvas.getContext("2d");
+
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();
+window.addEventListener("resize",resize);
+
+let stars=[];
+function createStars(){
+stars=[];
+for(let i=0;i<400;i++){
+stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,s:Math.random()*2});
+}}
+createStars();
+window.addEventListener("resize",createStars);
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+for(let st of stars){ctx.fillStyle="white";ctx.fillRect(st.x,st.y,st.s,st.s);}
+requestAnimationFrame(draw);
+}
+draw();
+
+const words=document.querySelectorAll(".word");
+const ring=document.getElementById("ring");
+
+if(words.length>0 && ring){
+let radius=Math.min(window.innerWidth,window.innerHeight)*0.32;
+window.addEventListener("resize",()=>radius=Math.min(window.innerWidth,window.innerHeight)*0.32);
+
+let angle=0;
+function animate(){
+angle+=0.01;
+ring.style.transform="translate(-50%,-50%) rotateX(65deg) rotateZ("+angle+"rad)";
+for(let i=0;i<words.length;i++){
+let a=angle+(i*(Math.PI*2/words.length));
+let x=Math.cos(a)*radius;
+let y=Math.sin(a)*radius*0.5;
+words[i].style.transform="translate(-50%,-50%) translate("+x+"px,"+y+"px)";
+}
+requestAnimationFrame(animate);
+}
+animate();
+}
+
+const music=document.getElementById("musica");
+const overlay=document.getElementById("startMusic");
+
+music.volume=0.9;
+music.play().then(()=>overlay.style.display="none").catch(()=>{});
+
+function startAudio(){
+music.currentTime=0;
+music.play();
+overlay.style.display="none";
+document.removeEventListener("click",startAudio);
+document.removeEventListener("touchstart",startAudio);
+}
+document.addEventListener("click",startAudio);
+document.addEventListener("touchstart",startAudio);
+
+setInterval(()=>{if(music.paused)music.play().catch(()=>{});},2000);
+music.addEventListener("ended",()=>{music.currentTime=0;music.play();});
+
 });
-
 </script>
 
 </body>
