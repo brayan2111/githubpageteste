@@ -23,12 +23,24 @@ box-shadow:0 0 40px 20px #ff00ff,0 0 120px 40px #ff00ff;transform:translate(-50%
 background:black;border-radius:50%;box-shadow:0 0 100px 40px rgba(255,0,255,0.6);}
 .word{position:absolute;top:50%;left:50%;color:white;font-size:18px;text-shadow:0 0 10px #ff00ff;white-space:nowrap;}
 
+/* CARTA */
 .left-card{
 position:absolute;width:300px;height:350px;top:50%;right:63%;transform:translate(-50%,-50%);
-background:rgba(255,182,193,0.4);border-radius:25px;box-shadow:0 10px 30px rgba(255,0,200,0.3);
+background:rgba(255,182,193,0.45);border-radius:25px;box-shadow:0 10px 30px rgba(255,0,200,0.3);
 display:flex;justify-content:center;align-items:center;text-align:center;padding:30px;
 }
+.left-card p{font-size:20px;line-height:1.5;color:#4d062d}
 
+/* 4 mariposas esquinas */
+.left-card span{
+position:absolute;font-size:35px;pointer-events:none;
+}
+.b1{top:8px;left:10px;transform:rotate(-20deg);}
+.b2{top:8px;right:10px;transform:rotate(20deg);}
+.b3{bottom:8px;left:10px;transform:rotate(200deg);}
+.b4{bottom:8px;right:10px;transform:rotate(-200deg);}
+
+/* MEDIA DERECHA */
 .right-media{
 position:absolute;top:50%;left:85%;transform:translate(-50%,-50%);
 width:320px;display:flex;flex-direction:column;gap:15px;padding:10px;
@@ -39,20 +51,13 @@ background:rgba(255,182,193,0.3);border-radius:25px;box-shadow:0 10px 30px rgba(
 .photos img{width:90px;border-radius:8px;}
 
 @media(max-width:768px){
-body{overflow:auto;}
-canvas{position:fixed;}
-
+body{overflow:auto;} canvas{position:fixed;}
 .layout{display:flex;flex-direction:column;align-items:center;gap:40px;padding-top:90px;padding-bottom:80px;}
 .title{position:relative;font-size:26px;}
-
-.galaxy,.left-card,.right-media{
-position:relative !important;top:auto;left:auto;right:auto;transform:none !important;
-}
-
+.galaxy,.left-card,.right-media{position:relative !important;top:auto;left:auto;right:auto;transform:none !important;}
 .right-media{order:1;width:90%;max-width:350px;}
 .galaxy{order:2;width:90vw;height:90vw;max-width:380px;max-height:380px;}
 .left-card{order:3;width:90%;max-width:350px;height:auto;}
-
 .ring{width:80%;height:80%;}
 .planet{width:35%;height:35%;}
 .word{font-size:13px;}
@@ -87,15 +92,19 @@ position:relative !important;top:auto;left:auto;right:auto;transform:none !impor
 </div>
 
 <div class="left-card">
+<span class="b1">🦋</span>
+<span class="b2">🦋</span>
+<span class="b3">🦋</span>
+<span class="b4">🦋</span>
 <p>
 Para mí, tú eres mi mundo entero.<br>
 Hoy 14 de febrero agradezco tenerte conmigo.<br>
-Cada momento contigo es un tesoro 💖
+Cada momento contigo es un tesoro, y siempre deseo que nuestra historia continúe brillando como las estrellas. 💝
 </p>
 </div>
 
 <div class="right-media">
-<video src="video.mp4" muted autoplay loop playsinline></video>
+<video id="video" src="video.mp4" muted playsinline></video>
 <div class="photos">
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
@@ -105,72 +114,37 @@ Cada momento contigo es un tesoro 💖
 
 </div>
 
+<!-- MUSICA -->
+<div id="startMusic" style="position:fixed;inset:0;background:rgba(0,0,0,0.65);display:flex;justify-content:center;align-items:center;z-index:9999;color:white;font-size:22px;text-align:center;backdrop-filter:blur(8px);">
+Toca la pantalla ❤️<br>para comenzar la sorpresa
+</div>
+<audio id="musica" src="musica.mp3" loop></audio>
+
 <script>
 document.addEventListener("DOMContentLoaded",function(){
 
-/* CANVAS SEGURO */
-const canvas=document.getElementById("space");
-const ctx=canvas.getContext("2d");
+/* VIDEO 10 SEGUNDOS EXACTOS */
+const video=document.getElementById("video");
+video.currentTime=0;
+video.play().catch(()=>{});
+setInterval(()=>{
+video.currentTime=0;
+video.play().catch(()=>{});
+},10000);
 
-function resize(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+/* MUSICA */
+const music=document.getElementById("musica");
+const overlay=document.getElementById("startMusic");
+music.volume=0.9;
+function startAudio(){
+music.play();
+overlay.style.display="none";
+document.removeEventListener("click",startAudio);
+document.removeEventListener("touchstart",startAudio);
 }
-resize();
-window.addEventListener("resize",resize);
-
-/* crear estrellas después del tamaño correcto */
-let stars=[];
-function createStars(){
-stars=[];
-for(let i=0;i<400;i++){
-stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,s:Math.random()*2});
-}
-}
-createStars();
-window.addEventListener("resize",createStars);
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-for(let i=0;i<stars.length;i++){
-let st=stars[i];
-ctx.fillStyle="white";
-ctx.fillRect(st.x,st.y,st.s,st.s);
-}
-requestAnimationFrame(draw);
-}
-draw();
-
-/* ORBITA SEGURA */
-const words=document.querySelectorAll(".word");
-const ring=document.getElementById("ring");
-
-if(words.length>0 && ring){
-
-let radius=Math.min(window.innerWidth,window.innerHeight)*0.32;
-
-window.addEventListener("resize",()=>{
-radius=Math.min(window.innerWidth,window.innerHeight)*0.32;
-});
-
-let angle=0;
-function animate(){
-angle+=0.01;
-
-ring.style.transform="translate(-50%,-50%) rotateX(65deg) rotateZ("+angle+"rad)";
-
-for(let i=0;i<words.length;i++){
-let a=angle+(i*(Math.PI*2/words.length));
-let x=Math.cos(a)*radius;
-let y=Math.sin(a)*radius*0.5;
-words[i].style.transform="translate(-50%,-50%) translate("+x+"px,"+y+"px)";
-}
-
-requestAnimationFrame(animate);
-}
-animate();
-
-}
+document.addEventListener("click",startAudio);
+document.addEventListener("touchstart",startAudio);
+setInterval(()=>{if(music.paused)music.play().catch(()=>{});},2000);
 
 });
 </script>
