@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -7,163 +6,60 @@
 <title>Galaxia San Valentín</title>
 
 <style>
-body{
-    margin:0;
-    overflow:hidden;
-    background:black;
-    font-family:'Comic Sans MS', cursive;
-}
+body{margin:0;overflow:hidden;background:black;font-family:'Comic Sans MS',cursive;}
+canvas{position:absolute;top:0;left:0;z-index:1;}
+.layout{position:relative;z-index:5;}
 
-/* Fondo estrellas */
-canvas{
-    position:absolute;
-    top:0;
-    left:0;
-    z-index:1;
-}
-
-/* contenedor principal */
-.layout{
-    position:relative;
-    z-index:5;
-}
-
-/* título */
 .title{
-    position:absolute;
-    top:5%;
-    width:100%;
-    text-align:center;
-    font-size:38px;
-    color:#ff77cc;
-    text-shadow:0 0 20px #ff00ff,0 0 40px #ff00ff;
-    z-index:10;
+position:absolute;top:5%;width:100%;text-align:center;font-size:38px;
+color:#ff77cc;text-shadow:0 0 20px #ff00ff,0 0 40px #ff00ff;z-index:10;
 }
 
-/* galaxia */
-.galaxy{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:600px;
-    height:600px;
-    transform:translate(-50%,-50%);
-}
-.system{ position:absolute; width:100%; height:100%; transform-style:preserve-3d; }
-.ring{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    box-shadow: 0 0 40px 20px #ff00ff, 0 0 120px 40px #ff00ff;
-    transform:translate(-50%,-50%) rotateX(65deg);
-}
-.planet{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:230px;
-    height:230px;
-    transform:translate(-50%,-50%);
-    background:black;
-    border-radius:50%;
-    box-shadow:0 0 100px 40px rgba(255,0,255,0.6);
-}
-.word{
-    position:absolute;
-    top:50%;
-    left:50%;
-    color:white;
-    font-size:18px;
-    text-shadow:0 0 10px #ff00ff;
-    white-space:nowrap;
-}
+.galaxy{position:absolute;top:50%;left:50%;width:600px;height:600px;transform:translate(-50%,-50%);}
+.system{position:absolute;width:100%;height:100%;transform-style:preserve-3d;}
+.ring{position:absolute;top:50%;left:50%;width:500px;height:500px;border-radius:50%;
+box-shadow:0 0 40px 20px #ff00ff,0 0 120px 40px #ff00ff;transform:translate(-50%,-50%) rotateX(65deg);}
+.planet{position:absolute;top:50%;left:50%;width:230px;height:230px;transform:translate(-50%,-50%);
+background:black;border-radius:50%;box-shadow:0 0 100px 40px rgba(255,0,255,0.6);}
+.word{position:absolute;top:50%;left:50%;color:white;font-size:18px;text-shadow:0 0 10px #ff00ff;white-space:nowrap;}
 
-/* carta */
 .left-card{
-    position:absolute;
-    width:300px;
-    height:350px;
-    top:50%;
-    right:63%;
-    transform:translate(-50%,-50%);
-    background:rgba(255,182,193,0.4);
-    border-radius:25px;
-    box-shadow:0 10px 30px rgba(255,0,200,0.3);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:30px;
+position:absolute;width:300px;height:350px;top:50%;right:63%;transform:translate(-50%,-50%);
+background:rgba(255,182,193,0.4);border-radius:25px;box-shadow:0 10px 30px rgba(255,0,200,0.3);
+display:flex;justify-content:center;align-items:center;text-align:center;padding:30px;
 }
-.left-card p{ font-size:20px; line-height:1.5; color:#4d062d; }
 
-/* media derecha */
 .right-media{
-    position:absolute;
-    top:50%;
-    left:85%;
-    transform:translate(-50%,-50%);
-    width:320px;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-    padding:10px;
-    background:rgba(255,182,193,0.3);
-    border-radius:25px;
-    box-shadow:0 10px 30px rgba(255,0,200,0.3);
+position:absolute;top:50%;left:85%;transform:translate(-50%,-50%);
+width:320px;display:flex;flex-direction:column;gap:15px;padding:10px;
+background:rgba(255,182,193,0.3);border-radius:25px;box-shadow:0 10px 30px rgba(255,0,200,0.3);
 }
-.right-media video{ width:100%; border-radius:10px; }
-.photos{ display:flex; gap:10px; justify-content:center; }
-.photos img{ width:90px; border-radius:8px; }
+.right-media video{width:100%;border-radius:10px;}
+.photos{display:flex;gap:10px;justify-content:center;}
+.photos img{width:90px;border-radius:8px;}
 
-/* ======== MODO MOVIL REAL ======== */
-@media (max-width:768px){
+@media(max-width:768px){
+body{overflow:auto;}
+canvas{position:fixed;}
 
-    body{ overflow:auto; }
+.layout{display:flex;flex-direction:column;align-items:center;gap:40px;padding-top:90px;padding-bottom:80px;}
+.title{position:relative;font-size:26px;}
 
-    canvas{ position:fixed; }
+.galaxy,.left-card,.right-media{
+position:relative !important;top:auto;left:auto;right:auto;transform:none !important;
+}
 
-    .layout{
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap:40px;
-        padding-top:90px;
-        padding-bottom:80px;
-    }
+.right-media{order:1;width:90%;max-width:350px;}
+.galaxy{order:2;width:90vw;height:90vw;max-width:380px;max-height:380px;}
+.left-card{order:3;width:90%;max-width:350px;height:auto;}
 
-    .title{
-        position:relative;
-        top:auto;
-        font-size:26px;
-    }
-
-    .galaxy,
-    .left-card,
-    .right-media{
-        position:relative !important;
-        top:auto;
-        left:auto;
-        right:auto;
-        transform:none !important;
-    }
-
-    .right-media{ order:1; width:90%; max-width:350px; }
-    .galaxy{ order:2; width:90vw; height:90vw; max-width:380px; max-height:380px; }
-    .left-card{ order:3; width:90%; max-width:350px; height:auto; }
-
-    .ring{ width:80%; height:80%; }
-    .planet{ width:35%; height:35%; }
-    .word{ font-size:13px; }
-
-    .photos{ flex-wrap:wrap; }
-    .photos img{ width:28%; min-width:70px; }
+.ring{width:80%;height:80%;}
+.planet{width:35%;height:35%;}
+.word{font-size:13px;}
+.photos{flex-wrap:wrap;}
+.photos img{width:28%;min-width:70px;}
 }
 </style>
-
 </head>
 
 <body>
@@ -174,20 +70,20 @@ canvas{
 <div class="title">Feliz San Valentín ❤️</div>
 
 <div class="galaxy">
-    <div class="system">
-        <div class="ring" id="ring"></div>
-        <div class="word">Te amo 💖</div>
-        <div class="word">Mi princesa</div>
-        <div class="word">Eres mi hogar</div>
-        <div class="word">Mi universo</div>
-        <div class="word">Siempre tú</div>
-        <div class="word">Mi vida entera</div>
-        <div class="word">Contigo siempre</div>
-        <div class="word">Mi corazón es tuyo</div>
-        <div class="word">Eres mi destino</div>
-        <div class="word">Mi estrella ✨</div>
-    </div>
-    <div class="planet"></div>
+<div class="system">
+<div class="ring" id="ring"></div>
+<div class="word">Te amo 💖</div>
+<div class="word">Mi princesa</div>
+<div class="word">Eres mi hogar</div>
+<div class="word">Mi universo</div>
+<div class="word">Siempre tú</div>
+<div class="word">Mi vida entera</div>
+<div class="word">Contigo siempre</div>
+<div class="word">Mi corazón es tuyo</div>
+<div class="word">Eres mi destino</div>
+<div class="word">Mi estrella ✨</div>
+</div>
+<div class="planet"></div>
 </div>
 
 <div class="left-card">
@@ -199,7 +95,7 @@ Cada momento contigo es un tesoro 💖
 </div>
 
 <div class="right-media">
-<video id="video" src="video.mp4" muted autoplay loop></video>
+<video src="video.mp4" muted autoplay loop playsinline></video>
 <div class="photos">
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
@@ -210,36 +106,49 @@ Cada momento contigo es un tesoro 💖
 </div>
 
 <script>
-/* estrellas */
-const canvas = document.getElementById("space");
-const ctx = canvas.getContext("2d");
+document.addEventListener("DOMContentLoaded",function(){
+
+/* CANVAS SEGURO */
+const canvas=document.getElementById("space");
+const ctx=canvas.getContext("2d");
+
 function resize(){
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 }
 resize();
 window.addEventListener("resize",resize);
 
+/* crear estrellas después del tamaño correcto */
 let stars=[];
-for(let i=0;i<600;i++){
+function createStars(){
+stars=[];
+for(let i=0;i<400;i++){
 stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,s:Math.random()*2});
 }
+}
+createStars();
+window.addEventListener("resize",createStars);
 
 function draw(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
-stars.forEach(st=>{
+for(let i=0;i<stars.length;i++){
+let st=stars[i];
 ctx.fillStyle="white";
 ctx.fillRect(st.x,st.y,st.s,st.s);
-});
+}
 requestAnimationFrame(draw);
 }
 draw();
 
-/* orbita adaptable */
+/* ORBITA SEGURA */
 const words=document.querySelectorAll(".word");
 const ring=document.getElementById("ring");
 
+if(words.length>0 && ring){
+
 let radius=Math.min(window.innerWidth,window.innerHeight)*0.32;
+
 window.addEventListener("resize",()=>{
 radius=Math.min(window.innerWidth,window.innerHeight)*0.32;
 });
@@ -247,16 +156,23 @@ radius=Math.min(window.innerWidth,window.innerHeight)*0.32;
 let angle=0;
 function animate(){
 angle+=0.01;
-ring.style.transform=translate(-50%,-50%) rotateX(65deg) rotateZ(${angle}rad);
-words.forEach((w,i)=>{
+
+ring.style.transform="translate(-50%,-50%) rotateX(65deg) rotateZ("+angle+"rad)";
+
+for(let i=0;i<words.length;i++){
 let a=angle+(i*(Math.PI*2/words.length));
 let x=Math.cos(a)*radius;
 let y=Math.sin(a)*radius*0.5;
-w.style.transform=translate(-50%,-50%) translate(${x}px,${y}px);
-});
+words[i].style.transform="translate(-50%,-50%) translate("+x+"px,"+y+"px)";
+}
+
 requestAnimationFrame(animate);
 }
 animate();
+
+}
+
+});
 </script>
 
 </body>
